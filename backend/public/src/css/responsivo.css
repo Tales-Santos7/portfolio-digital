@@ -35,6 +35,10 @@
     display: none;
   }
 
+  #hero-image-container {
+    display: none;
+  }
+
   .content {
     width: 300px;
     margin-top: -50px;
