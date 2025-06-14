@@ -30,37 +30,43 @@ const ImgHero = () => {
     setPreview(URL.createObjectURL(file));
   };
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
+const handleUpload = async (e) => {
+  e.preventDefault();
+  if (!selectedImage) {
+    alert("Selecione uma imagem.");
+    return;
+  }
 
-    if (!selectedImage) {
-      alert("Selecione uma imagem.");
-      return;
-    }
+  const formData = new FormData();
+  formData.append("images", selectedImage); // nome coerente com `upload.array("images", ...)`
 
-    const formData = new FormData();
-    formData.append("images", selectedImage);
-
-    try {
-      const res = await axios.put(
-        "https://portfolio-digital.onrender.com/content/hero",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-
-      if (res.data.images && res.data.images.length > 0) {
-        setHeroImage(res.data.images[0]);
-        setStatus("Imagem enviada com sucesso!");
-        setSelectedImage(null);
-        setPreview("");
+  try {
+    const res = await axios.put(
+      "https://portfolio-digital.onrender.com/content/hero",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
       }
-    } catch (err) {
-      console.error(err);
-      setStatus("Erro ao enviar imagem.");
+    );
+
+    console.log("✅ Upload bem-sucedido:", res.data);
+    if (res.data.images && res.data.images.length > 0) {
+      setHeroImage(res.data.images[0]);
+      setStatus("Imagem enviada com sucesso!");
+      setSelectedImage(null);
+      setPreview("");
     }
-  };
+  } catch (err) {
+    console.error("🚨 AxiosError:", err);
+    if (err.response) {
+      console.error("Resposta do servidor:", err.response.status, err.response.data);
+      setStatus(`Erro ${err.response.status}: ${err.response.data.message || 'Erro no upload'}`);
+    } else {
+      console.error("Erro sem resposta:", err.message);
+      setStatus(`Erro: ${err.message}`);
+    }
+  }
+};
 
   return (
     <div className="card-form">
