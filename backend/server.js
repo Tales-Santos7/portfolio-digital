@@ -77,6 +77,11 @@ app.put("/content/hero", upload.array("images", 1), async (req, res) => {
     res.status(500).json({ message: "Erro ao salvar imagem da hero" });
   }
 });
+console.log("🔹 req.files:", req.files);
+if (!req.files || req.files.length === 0) {
+  return res.status(400).json({ message: "Nenhuma imagem recebida." });
+}
+ 
 
 // GALERIA
 app.delete("/content/gallery", async (req, res) => {
