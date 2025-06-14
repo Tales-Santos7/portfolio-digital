@@ -47,36 +47,41 @@ app.get("/content/hero", async (req, res) => {
 
 app.put("/content/hero", upload.array("images", 1), async (req, res) => {
   try {
+    console.log("🔹 req.files:", req.files);
     if (!req.files || req.files.length === 0) {
+      console.log("⚠️ Nenhuma imagem recebida no backend");
       return res.status(400).json({ message: "Nenhuma imagem recebida." });
     }
 
-    let hero = await Content.findOne({ section: "hero" });
-    if (!hero) hero = new Content({ section: "hero", images: [] });
-
+    console.log("📦 Enviando imagem para imgbb:", req.files[0].originalname);
     const formData = new FormData();
     formData.append("image", fs.createReadStream(req.files[0].path));
 
     const response = await axios.post(
       `https://api.imgbb.com/1/upload?key=${process.env.POSTIMAGES_API_KEY}`,
       formData,
-      {
-        headers: formData.getHeaders(),
-      }
+      { headers: formData.getHeaders() }
     );
 
+    console.log("✅ imgbb retornou:", response.data);
     const imageUrl = response.data.data.url;
     fs.unlinkSync(req.files[0].path);
 
+    let hero = await Content.findOne({ section: "hero" }) || new Content({ section: "hero", images: [] });
     hero.images = [imageUrl];
     await hero.save();
-    res.json(hero);
+
+    return res.json(hero);
   } catch (error) {
-    console.error("Erro ao salvar imagem da hero:", error);
-    if (error.response) console.error("Resposta imgbb:", error.response.data);
-    res.status(500).json({ message: "Erro ao salvar imagem da hero" });
+    console.error("🔴 Erro ao salvar imagem da hero:", error);
+
+    if (error.response) {
+      console.error("📦 Resposta do imgbb:", error.response.status, error.response.data);
+    }
+    return res.status(500).json({ message: "Erro ao salvar imagem da hero" });
   }
 });
+
 console.log("🔹 req.files:", req.files);
 if (!req.files || req.files.length === 0) {
   return res.status(400).json({ message: "Nenhuma imagem recebida." });
