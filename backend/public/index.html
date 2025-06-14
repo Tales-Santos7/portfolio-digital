@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User - Lifestyle | Beauty | Study</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="./src/img/favicon-16x16.png">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://kit.fontawesome.com/959c1b1c33.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/responsivo.css">
+</head>
+
+<body>
+
+  <script>
+    fetch("http://localhost:3000/content/theme")
+      .then(res => res.json())
+      .then(data => {
+        if (data.color) {
+          document.documentElement.style.setProperty('--primary-color', data.color);
+        }
+      });
+  </script>
+
+  <ul class="none">
+    <li class="dropdown">
+      </a>
+      <a id="toggle" class="dropbtn"><i class="ri-menu-line"></i></a>
+      <div class="dropdown-content">
+        <img src="./src/img/Cópia-de-Taty.png" alt="Logo Tales" style="background-color: #0d0d17;">
+
+        <a href="./index.html" style=" background-color: #F4ECDF; color: #0d0d17;">Home</a>
+        <i class="icone-dropdown icone-dropdown-2 ri-user-3-fill"></i> <a href="#sobre">Sobre mim</a>
+        <i class="icone-dropdown icone-dropdown-3 ri-multi-image-fill"></i><a href="#galeria">
+          Galeria</a>
+        <i class="icone-dropdown icone-dropdown-3 ri-news-fill"></i><a href="#blog">
+          Blog</a>
+        <i class="icone-dropdown icone-dropdown-2 ri-phone-fill"></i><a href="#contato"> Contato</a>
+        <div class="fim-drop">
+          <a class="fim-drop fim-drop-1" href="https://www.instagram.com/user/"><i class="ri-instagram-fill"></i>
+          </a>
+          <a class="fim-drop fim-drop-2"
+            href="https://www.threads.net/@user?xmt=AQGzEg0qyOdPiizlW4zHGQ5Bp3YKC91cfnIjRKsrGUzSxXc"><i
+              class="ri-threads-line"></i></a>
+        </div><br><br>
+        <p style="color: #F4ECDF;margin-left: 70px; font-size: 12px;margin-top: -30px;">
+          <br>Quem sonha, conquista🌟
+        </p>
+      </div>
+    </li>
+  </ul>
+
+  <div class="container">
+    <img src="./src/img/fundo2.jpg" alt="">
+    <!-- Cabeçalho -->
+    <header class="header">
+      <nav class="menu">
+        <a href="http://localhost:3000/">
+          <li class="logo-tipo"><span>USER </span><br> Lifestyle - Beauty - Study</li>
+        </a>
+        <ul>
+          <li><a class="size-nav" href="http://localhost:3000/">Home</a></li>
+          <li><a class="size-nav" href="#sobre">Sobre</a></li>
+          <li><a class="size-nav" href="#modelos">Galeria</a></li>
+          <li><a class="size-nav" href="#blog">Blog</a></li>
+          <li><a class="size-nav" href="#contato">Contato</a></li>
+          <a href="https://www.instagram.com/user/"><i class="ri-instagram-line social"></i></a>
+          <a href="#"><i class="ri-threads-line social"></i></a>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Seção Principal -->
+    <main class="main-section">
+      <div class="overlay"></div>
+      <div id="hero-image-container">
+        <img id="hero-photo" src="" alt="Foto Hero" style="display: none;">
+      </div>
+      <div id="" class="content">
+        <!-- Conteúdo base para evitar erros no DOM -->
+        <h1><span>BELEZA ESTÁ</span><br> POR TUDO</h1>
+        <p>
+          Sou um parágrafo. Clique aqui para me editar e adicionar seu texto. Sou um ótimo lugar para contar sua
+          história e permitir que seus visitantes saibam um pouco mais sobre você.
+        </p>
+        <a href="#sobre" class="btn">SAIBA MAIS</a>
+        <script>
+          // Carrega imagem da hero da API
+          fetch('http://localhost:3000/content/hero')
+            .then(res => res.json())
+            .then(data => {
+              const heroImage = document.getElementById("hero-photo");
+              if (data.images && data.images.length > 0) {
+                heroImage.src = data.images[0];
+                heroImage.style.display = "block";
+              }
+            })
+            .catch(error => console.error("Erro ao carregar imagem da hero:", error));
+
+          // Código para carregar conteúdo dinâmico
+          fetch('http://localhost:3000/content/mainSection')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              document.querySelector('h1').innerText = data.title;
+              document.querySelector('p').innerText = data.description;
+            })
+            .catch(error => console.error('Erro ao carregar conteúdo:', error));
+
+        </script>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Seção Galeria -->
+  <section id="modelos" class="galeria">
+    <h2 id="galeria">✨Galeria</h2>
+    <div id="galeria-container">
+      <script>
+        fetch('http://localhost:3000/content/gallery')
+          .then((response) => response.json())
+          .then((data) => {
+            const container = document.getElementById('galeria-container');
+            data.images.forEach((url) => {
+              const img = document.createElement('img');
+              img.src = url;
+              img.alt = 'Imagem da galeria';
+              img.classList.add('imagem-galeria');  // Adiciona a classe CSS
+              container.appendChild(img);
+            });
+          })
+          .catch((error) => console.error('Erro ao carregar galeria:', error));
+      </script>
+    </div>
+  </section>
+
+  <!-- Seção Sobre Mim -->
+  <section id="sobre" class="sobre">
+    <h2 id="about-title">Título Padrão</h2>
+    <p id="about-description">Descrição padrão.</p>
+  </section>
+  <script>
+    fetch('http://localhost:3000/content/about')
+      .then((response) => response.json())
+      .then((data) => {
+        document.querySelector('#about-title').innerText = data.title;
+        document.querySelector('#about-description').innerText = data.description;
+      })
+      .catch((error) => console.error('Erro ao carregar "Sobre Mim":', error));
+  </script>
+
+  </section>
+  <!-- Seção Blog -->
+  <!-- Seção Blog -->
+  <section id="blog" class="blog">
+    <h2>Blog</h2>
+    <div class="blog-posts" id="blog-posts-container"></div>
+    <div style="margin-top: 1rem;">
+      <button id="load-more" class="btn-post-more" style="display: none;">Mostrar mais</button>
+      <button id="show-less" class="btn-post-more" style="display: none; margin-left: 10px;">Mostrar menos</button>
+    </div>
+
+    <script>
+      const postsPerPage = 8;
+      let currentPage = 1;
+      let allPosts = [];
+
+      function renderPosts() {
+        const container = document.getElementById('blog-posts-container');
+        container.innerHTML = '';
+        const endIndex = postsPerPage * currentPage;
+        const visiblePosts = allPosts.slice(0, endIndex);
+
+        visiblePosts.forEach(post => {
+          const postDate = new Date(post.createdAt);
+          const formattedDate = isNaN(postDate) ? 'Data inválida' : postDate.toLocaleDateString('pt-BR');
+          const postElement = document.createElement('div');
+          postElement.classList.add('post');
+          postElement.innerHTML = `
+        <img src="${post.imageUrl}" alt="${post.title}" class="post-image">
+        <h3>${post.title}</h3>
+        <p>${post.content}</p>
+        <p class="post-date">Publicado em: ${formattedDate}</p>
+        <a href="post.html?id=${post._id}" class="btn-post">Leia Mais</a>
+      `;
+          container.appendChild(postElement);
+        });
+
+        document.getElementById('load-more').style.display = endIndex < allPosts.length ? 'inline-block' : 'none';
+        document.getElementById('show-less').style.display = currentPage > 1 ? 'inline-block' : 'none';
+      }
+
+      fetch('http://localhost:3000/blog')
+        .then(response => response.json())
+        .then(posts => {
+          allPosts = posts;
+          renderPosts();
+        })
+        .catch(error => console.error('Erro ao carregar os posts do blog:', error));
+
+      document.getElementById('load-more').addEventListener('click', () => {
+        currentPage++;
+        renderPosts();
+      });
+
+      document.getElementById('show-less').addEventListener('click', () => {
+        currentPage = 1;
+        renderPosts();
+        window.scrollTo({ top: document.getElementById('blog').offsetTop, behavior: 'smooth' });
+      });
+    </script>
+
+  </section>
+
+  <footer class="rodape">
+    <div class="container-rodape">
+      <div class="linha">
+
+        <div class="rodape-col-2">
+          <a href="http://localhost:3000">
+            <img src="./src/img/logo-180x34.jpg" alt="Logo user">
+          </a>
+        </div>
+
+        <div id="contato" class="rodape-col-3">
+          <h3>Mais informações</h3>
+          <ul>
+            <li><a href="http://localhost:3000">Home</a></li>
+            <li><a href="#sobre">Sobre mim</a></li>
+            <li><a href="#modelos">Galeria</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <script>document.addEventListener("DOMContentLoaded", function () {
+            fetch("http://localhost:3000/social-links")
+              .then((response) => response.json())
+              .then((links) => {
+                const socialList = document.querySelector(".rodape-col-4 ul");
+                socialList.innerHTML = ""; // Limpa a lista antes de inserir os links dinâmicos
+
+                links.forEach((link) => {
+                  const listItem = document.createElement("li");
+                  const anchor = document.createElement("a");
+                  anchor.href = link.url;
+                  anchor.textContent = link.name;
+                  anchor.target = "_blank"; // Abre o link em uma nova aba
+                  listItem.appendChild(anchor);
+                  socialList.appendChild(listItem);
+                });
+              })
+              .catch((error) => console.error("Erro ao carregar redes sociais:", error));
+          });
+        </script>
+
+        <div class="rodape-col-4">
+          <h3>Redes Sociais</h3>
+          <ul>
+            <!-- Os links serão carregados dinamicamente aqui -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="direitos">&copy; 2025 <a href="http://localhost:3000"
+        style="color: #fff; background-color: rgba(0, 0, 0, 0.308); padding: 5px; border-radius: 8px; text-decoration: none;">User</a>
+      - Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="./src/js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</body>
+
+</html>
