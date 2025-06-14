@@ -14,7 +14,7 @@ function SocialLinksAdmin() {
 
   const fetchLinks = () => {
     axios
-      .get("http://localhost:3000/social-links")
+      .get("https://portfolio-digital.onrender.com/social-links")
       .then((response) => setSocialLinks(response.data))
       .catch((error) => {
         setStatusMessage("Erro ao buscar redes sociais.");
@@ -26,13 +26,21 @@ function SocialLinksAdmin() {
     e.preventDefault();
     try {
       if (editingId) {
-        const confirmUpdate = window.confirm("Tem certeza de que deseja atualizar este link?");
+        const confirmUpdate = window.confirm(
+          "Tem certeza de que deseja atualizar este link?"
+        );
         if (confirmUpdate) {
-          await axios.put(`http://localhost:3000/social-links/${editingId}`, { url });
+          await axios.put(
+            `https://portfolio-digital.onrender.com/social-links/${editingId}`,
+            { url }
+          );
           setStatusMessage("Link atualizado com sucesso!");
         }
       } else {
-        await axios.post("http://localhost:3000/social-links", { name, url });
+        await axios.post(
+          "https://portfolio-digital.onrender.com/social-links",
+          { name, url }
+        );
         setStatusMessage("Link criado com sucesso!");
       }
 
@@ -53,10 +61,14 @@ function SocialLinksAdmin() {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Tem certeza de que deseja excluir este link?");
+    const confirmDelete = window.confirm(
+      "Tem certeza de que deseja excluir este link?"
+    );
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:3000/social-links/${id}`);
+        await axios.delete(
+          `https://portfolio-digital.onrender.com/social-links/${id}`
+        );
         setStatusMessage("Link excluído com sucesso!");
         fetchLinks();
       } catch (error) {
@@ -88,9 +100,15 @@ function SocialLinksAdmin() {
           onChange={(e) => setUrl(e.target.value)}
           required
         />
-        <button className="margin-botton" type="submit">{editingId ? "Atualizar" : "Adicionar"}</button>
+        <button className="margin-botton" type="submit">
+          {editingId ? "Atualizar" : "Adicionar"}
+        </button>
         {editingId && (
-          <button type="button" className="btn-red margin" onClick={() => setEditingId(null)}>
+          <button
+            type="button"
+            className="btn-red margin"
+            onClick={() => setEditingId(null)}
+          >
             Cancelar
           </button>
         )}
@@ -99,10 +117,23 @@ function SocialLinksAdmin() {
       <ul>
         {socialLinks.map((link) => (
           <li className="form-redes" key={link._id}>
-            <strong>{link.name}</strong> – <a href={link.url} target="_blank" rel="noopener noreferrer">{link.url}</a>
-            <div style={{ marginTop: '10px' }}>
-              <button className="btn-blue margin" onClick={() => handleEdit(link)}>Editar</button>
-              <button className="btn-red margin" onClick={() => handleDelete(link._id)}>Excluir</button>
+            <strong>{link.name}</strong> –{" "}
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.url}
+            </a>
+            <div style={{ marginTop: "10px" }}>
+              <button
+                className="btn-blue margin"
+                onClick={() => handleEdit(link)}
+              >
+                Editar
+              </button>
+              <button
+                className="btn-red margin"
+                onClick={() => handleDelete(link._id)}
+              >
+                Excluir
+              </button>
             </div>
           </li>
         ))}

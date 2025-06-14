@@ -12,7 +12,9 @@ export default function PostDetails() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/blog/${id}`);
+        const res = await axios.get(
+          `https://portfolio-digital.onrender.com/blog/${id}`
+        );
         setPost(res.data);
       } catch (error) {
         console.error("Erro ao carregar o post:", error);

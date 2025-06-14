@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const MainSectionForm = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Carregar dados existentes
     const fetchMainSection = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/content/mainSection');
+        const response = await axios.get(
+          "https://portfolio-digital.onrender.com/content/mainSection"
+        );
         if (response.data) {
           setTitle(response.data.title);
           setDescription(response.data.description);
         }
       } catch (error) {
-        console.error('Erro ao carregar a seção principal:', error);
+        console.error("Erro ao carregar a seção principal:", error);
       }
     };
 
@@ -28,14 +30,17 @@ const MainSectionForm = () => {
     setLoading(true);
 
     try {
-      await axios.put('http://localhost:3000/content/mainSection', {
-        title,
-        description,
-      });
-      alert('Seção atualizada com sucesso!');
+      await axios.put(
+        "https://portfolio-digital.onrender.com/content/mainSection",
+        {
+          title,
+          description,
+        }
+      );
+      alert("Seção atualizada com sucesso!");
     } catch (error) {
-      console.error('Erro ao salvar a seção:', error);
-      alert('Erro ao salvar a seção');
+      console.error("Erro ao salvar a seção:", error);
+      alert("Erro ao salvar a seção");
     } finally {
       setLoading(false);
     }
@@ -63,7 +68,7 @@ const MainSectionForm = () => {
           ></textarea>
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Salvando...' : 'Salvar Alterações'}
+          {loading ? "Salvando..." : "Salvar Alterações"}
         </button>
       </form>
     </div>

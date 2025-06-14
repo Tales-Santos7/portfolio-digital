@@ -18,7 +18,7 @@
 <body>
 
   <script>
-    fetch("http://localhost:3000/content/theme")
+    fetch("https://portfolio-digital.onrender.com/content/theme")
       .then(res => res.json())
       .then(data => {
         if (data.color) {
@@ -60,11 +60,11 @@
     <!-- Cabeçalho -->
     <header class="header">
       <nav class="menu">
-        <a href="http://localhost:3000/">
+        <a href="https://portfolio-digital.onrender.com/">
           <li class="logo-tipo"><span>USER </span><br> Lifestyle - Beauty - Study</li>
         </a>
         <ul>
-          <li><a class="size-nav" href="http://localhost:3000/">Home</a></li>
+          <li><a class="size-nav" href="https://portfolio-digital.onrender.com/">Home</a></li>
           <li><a class="size-nav" href="#sobre">Sobre</a></li>
           <li><a class="size-nav" href="#modelos">Galeria</a></li>
           <li><a class="size-nav" href="#blog">Blog</a></li>
@@ -91,7 +91,7 @@
         <a href="#sobre" class="btn">SAIBA MAIS</a>
         <script>
           // Carrega imagem da hero da API
-          fetch('http://localhost:3000/content/hero')
+          fetch('https://portfolio-digital.onrender.com/content/hero')
             .then(res => res.json())
             .then(data => {
               const heroImage = document.getElementById("hero-photo");
@@ -103,7 +103,7 @@
             .catch(error => console.error("Erro ao carregar imagem da hero:", error));
 
           // Código para carregar conteúdo dinâmico
-          fetch('http://localhost:3000/content/mainSection')
+          fetch('https://portfolio-digital.onrender.com/content/mainSection')
             .then(response => {
               if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status}`);
@@ -127,7 +127,7 @@
     <h2 id="galeria">✨Galeria</h2>
     <div id="galeria-container">
       <script>
-        fetch('http://localhost:3000/content/gallery')
+        fetch('https://portfolio-digital.onrender.com/content/gallery')
           .then((response) => response.json())
           .then((data) => {
             const container = document.getElementById('galeria-container');
@@ -150,7 +150,7 @@
     <p id="about-description">Descrição padrão.</p>
   </section>
   <script>
-    fetch('http://localhost:3000/content/about')
+    fetch('https://portfolio-digital.onrender.com/content/about')
       .then((response) => response.json())
       .then((data) => {
         document.querySelector('#about-title').innerText = data.title;
@@ -200,7 +200,7 @@
         document.getElementById('show-less').style.display = currentPage > 1 ? 'inline-block' : 'none';
       }
 
-      fetch('http://localhost:3000/blog')
+      fetch('https://portfolio-digital.onrender.com/blog')
         .then(response => response.json())
         .then(posts => {
           allPosts = posts;
@@ -227,7 +227,7 @@
       <div class="linha">
 
         <div class="rodape-col-2">
-          <a href="http://localhost:3000">
+          <a href="https://portfolio-digital.onrender.com">
             <img src="./src/img/logo-180x34.jpg" alt="Logo user">
           </a>
         </div>
@@ -235,7 +235,7 @@
         <div id="contato" class="rodape-col-3">
           <h3>Mais informações</h3>
           <ul>
-            <li><a href="http://localhost:3000">Home</a></li>
+            <li><a href="https://portfolio-digital.onrender.com">Home</a></li>
             <li><a href="#sobre">Sobre mim</a></li>
             <li><a href="#modelos">Galeria</a></li>
             <li><a href="#blog">Blog</a></li>
@@ -244,7 +244,7 @@
         </div>
 
         <script>document.addEventListener("DOMContentLoaded", function () {
-            fetch("http://localhost:3000/social-links")
+            fetch("https://portfolio-digital.onrender.com/social-links")
               .then((response) => response.json())
               .then((links) => {
                 const socialList = document.querySelector(".rodape-col-4 ul");
@@ -273,7 +273,7 @@
       </div>
     </div>
     <hr>
-    <p class="direitos">&copy; 2025 <a href="http://localhost:3000"
+    <p class="direitos">&copy; 2025 <a href="https://portfolio-digital.onrender.com"
         style="color: #fff; background-color: rgba(0, 0, 0, 0.308); padding: 5px; border-radius: 8px; text-decoration: none;">User</a>
       - Todos os direitos reservados.</p>
   </footer>

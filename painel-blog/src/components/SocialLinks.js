@@ -6,7 +6,7 @@ function SocialLinks() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/social-links")
+      .get("https://portfolio-digital.onrender.com/social-links")
       .then((response) => setSocialLinks(response.data))
       .catch((error) => console.error("Erro ao buscar redes sociais:", error));
   }, []);

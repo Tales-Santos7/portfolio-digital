@@ -11,8 +11,8 @@
       --bg-white: #ffffff;
       --text-dark: #111827;
       --text-gray: #6b7280;
-    --primary-color: #ff007f;
-      --primary-hover:  rgba(0, 0, 0, 0.308);
+      --primary-color: #ff007f;
+      --primary-hover: rgba(0, 0, 0, 0.308);
     }
 
     body {
@@ -80,8 +80,8 @@
 </head>
 
 <body>
-   <script>
-    fetch("http://localhost:3000/content/theme")
+  <script>
+    fetch("https://portfolio-digital.onrender.com/content/theme")
       .then(res => res.json())
       .then(data => {
         if (data.color) {
@@ -106,7 +106,7 @@
       document.getElementById("title").innerText = "ID do post não encontrado.";
       document.getElementById("content").style.display = "none";
     } else {
-      fetch(`http://localhost:3000/blog/${postId}`)
+      fetch(`https://portfolio-digital.onrender.com/blog/${postId}`)
         .then((res) => {
           if (!res.ok) throw new Error("Post não encontrado");
           return res.json();
@@ -125,7 +125,7 @@
             // Verifica se a URL da imagem já começa com http, senão adiciona o domínio base
             img.src = post.imageUrl.startsWith("http")
               ? post.imageUrl
-              : `http://localhost:3000${post.imageUrl}`;
+              : `https://portfolio-digital.onrender.com${post.imageUrl}`;
             img.style.display = "block";
           }
         })

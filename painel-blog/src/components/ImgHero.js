@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ImgHero = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [preview, setPreview] = useState('');
-  const [status, setStatus] = useState('');
-  const [heroImage, setHeroImage] = useState('');
+  const [preview, setPreview] = useState("");
+  const [status, setStatus] = useState("");
+  const [heroImage, setHeroImage] = useState("");
 
   useEffect(() => {
     const fetchHeroImage = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/content/hero');
+        const res = await axios.get(
+          "https://portfolio-digital.onrender.com/content/hero"
+        );
         if (res.data.images && res.data.images.length > 0) {
           setHeroImage(res.data.images[0]);
         }
       } catch (err) {
-        console.error('Erro ao buscar imagem da hero:', err);
+        console.error("Erro ao buscar imagem da hero:", err);
       }
     };
 
@@ -32,27 +34,31 @@ const ImgHero = () => {
     e.preventDefault();
 
     if (!selectedImage) {
-      alert('Selecione uma imagem.');
+      alert("Selecione uma imagem.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('images', selectedImage);
+    formData.append("images", selectedImage);
 
     try {
-      const res = await axios.put('http://localhost:3000/content/hero', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await axios.put(
+        "https://portfolio-digital.onrender.com/content/hero",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (res.data.images && res.data.images.length > 0) {
         setHeroImage(res.data.images[0]);
-        setStatus('Imagem enviada com sucesso!');
+        setStatus("Imagem enviada com sucesso!");
         setSelectedImage(null);
-        setPreview('');
+        setPreview("");
       }
     } catch (err) {
       console.error(err);
-      setStatus('Erro ao enviar imagem.');
+      setStatus("Erro ao enviar imagem.");
     }
   };
 
@@ -61,12 +67,12 @@ const ImgHero = () => {
       <h2>Imagem da Hero (Sua foto)</h2>
 
       {heroImage && (
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: "10px" }}>
           <p>Imagem atual:</p>
           <img
             src={heroImage}
             alt="Hero atual"
-            style={{ maxWidth: '50%', borderRadius: '6px', marginTop: '5px' }}
+            style={{ maxWidth: "50%", borderRadius: "6px", marginTop: "5px" }}
           />
         </div>
       )}
@@ -74,16 +80,18 @@ const ImgHero = () => {
       <form onSubmit={handleUpload}>
         <input type="file" accept="image/*" onChange={handleImageChange} />
         {preview && (
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: "10px" }}>
             <p>Preview:</p>
             <img
               src={preview}
               alt="Preview"
-              style={{ maxWidth: '50%', borderRadius: '6px' }}
+              style={{ maxWidth: "50%", borderRadius: "6px" }}
             />
           </div>
         )}
-        <button className="btn-blue margin" type="submit">Enviar Imagem</button>
+        <button className="btn-blue margin" type="submit">
+          Enviar Imagem
+        </button>
       </form>
 
       {status && <p>{status}</p>}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'; 
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const PostForm = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [image, setImage] = useState(null); // Guardar o arquivo de imagem
 
   const handleImageChange = (e) => {
@@ -15,23 +15,27 @@ const PostForm = () => {
 
     // Configurar FormData para envio de dados e arquivo
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
+    formData.append("title", title);
+    formData.append("content", content);
     if (image) {
-      formData.append('image', image);
+      formData.append("image", image);
     }
 
     try {
-      await axios.post('http://localhost:3000/blog', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      alert('Post criado com sucesso!');
-      setTitle('');
-      setContent('');
+      await axios.post(
+        "https://portfolio-digital.onrender.com/blog",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      alert("Post criado com sucesso!");
+      setTitle("");
+      setContent("");
       setImage(null);
     } catch (error) {
-      console.error('Erro ao criar post:', error);
-      alert('Erro ao criar post');
+      console.error("Erro ao criar post:", error);
+      alert("Erro ao criar post");
     }
   };
 

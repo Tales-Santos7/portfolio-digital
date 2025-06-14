@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [editingPost, setEditingPost] = useState(null);
   const [formData, setFormData] = useState({
-    title: '',
-    content: '',
+    title: "",
+    content: "",
     image: null,
   });
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/blog');
+        const response = await axios.get(
+          "https://portfolio-digital.onrender.com/blog"
+        );
         setPosts(response.data);
       } catch (error) {
-        console.error('Erro ao carregar posts:', error);
+        console.error("Erro ao carregar posts:", error);
       }
     };
     fetchPosts();
@@ -33,7 +35,7 @@ const PostList = () => {
 
   const handleCancelEdit = () => {
     setEditingPost(null);
-    setFormData({ title: '', content: '', image: null });
+    setFormData({ title: "", content: "", image: null });
   };
 
   const handleInputChange = (e) => {
@@ -48,19 +50,23 @@ const PostList = () => {
   const handleSaveChanges = async () => {
     try {
       const updatedData = new FormData();
-      updatedData.append('title', formData.title);
-      updatedData.append('content', formData.content);
+      updatedData.append("title", formData.title);
+      updatedData.append("content", formData.content);
       if (formData.image) {
-        updatedData.append('image', formData.image);
+        updatedData.append("image", formData.image);
       }
 
-      const response = await axios.put(`http://localhost:3000/blog/${editingPost}`, updatedData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.put(
+        `https://portfolio-digital.onrender.com/blog/${editingPost}`,
+        updatedData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      alert('Post atualizado com sucesso!');
+      alert("Post atualizado com sucesso!");
       setEditingPost(null);
-      setFormData({ title: '', content: '', image: null });
+      setFormData({ title: "", content: "", image: null });
 
       const updatedPost = response.data;
       setPosts((prevPosts) =>
@@ -69,22 +75,26 @@ const PostList = () => {
         )
       );
     } catch (error) {
-      console.error('Erro ao atualizar post:', error);
-      alert('Erro ao atualizar post');
+      console.error("Erro ao atualizar post:", error);
+      alert("Erro ao atualizar post");
     }
   };
 
   const handleDelete = async (postId) => {
-    const confirmDelete = window.confirm('Tem certeza que deseja excluir este post?');
+    const confirmDelete = window.confirm(
+      "Tem certeza que deseja excluir este post?"
+    );
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:3000/blog/${postId}`);
-      alert('Post excluído com sucesso!');
+      await axios.delete(
+        `https://portfolio-digital.onrender.com/blog/${postId}`
+      );
+      alert("Post excluído com sucesso!");
       setPosts(posts.filter((post) => post._id !== postId));
     } catch (error) {
-      console.error('Erro ao excluir post:', error);
-      alert('Erro ao excluir post');
+      console.error("Erro ao excluir post:", error);
+      alert("Erro ao excluir post");
     }
   };
 
@@ -117,27 +127,49 @@ const PostList = () => {
                   Imagem:
                   <input type="file" onChange={handleImageChange} />
                 </label>
-                <button className="btn-blue margin" onClick={handleSaveChanges}>Salvar Alterações</button>
-                <button className="btn-red margin" onClick={handleCancelEdit}>Cancelar</button>
+                <button className="btn-blue margin" onClick={handleSaveChanges}>
+                  Salvar Alterações
+                </button>
+                <button className="btn-red margin" onClick={handleCancelEdit}>
+                  Cancelar
+                </button>
               </div>
             ) : (
               <div>
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
                 {post.imageUrl && (
-                  <img className="img-post"
-                    src={`http://localhost:3000${post.imageUrl}`}
+                  <img
+                    className="img-post"
+                    src={`https://portfolio-digital.onrender.com${post.imageUrl}`}
                     alt={post.title}
-                    style={{ maxWidth: '100%', borderRadius: '6px', marginTop: '10px' }}
+                    style={{
+                      maxWidth: "100%",
+                      borderRadius: "6px",
+                      marginTop: "10px",
+                    }}
                   />
                 )}
-                <p className="post-date">Publicado em: {new Date(post.createdAt).toLocaleDateString('pt-BR', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}</p>
-                <button className="btn-blue margin" onClick={() => handleEditClick(post)}>Editar</button>
-                <button className="btn-red margin" onClick={() => handleDelete(post._id)}>Excluir</button>
+                <p className="post-date">
+                  Publicado em:{" "}
+                  {new Date(post.createdAt).toLocaleDateString("pt-BR", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <button
+                  className="btn-blue margin"
+                  onClick={() => handleEditClick(post)}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn-red margin"
+                  onClick={() => handleDelete(post._id)}
+                >
+                  Excluir
+                </button>
               </div>
             )}
           </li>
