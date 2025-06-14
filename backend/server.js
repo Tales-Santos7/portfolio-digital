@@ -47,15 +47,23 @@ app.get("/content/hero", async (req, res) => {
 
 app.put("/content/hero", upload.array("images", 1), async (req, res) => {
   try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "Nenhuma imagem recebida." });
+    }
+
     let hero = await Content.findOne({ section: "hero" });
     if (!hero) hero = new Content({ section: "hero", images: [] });
 
     const formData = new FormData();
     formData.append("image", fs.createReadStream(req.files[0].path));
 
-    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${process.env.POSTIMAGES_API_KEY}`, formData, {
-      headers: formData.getHeaders(),
-    });
+    const response = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${process.env.POSTIMAGES_API_KEY}`,
+      formData,
+      {
+        headers: formData.getHeaders(),
+      }
+    );
 
     const imageUrl = response.data.data.url;
     fs.unlinkSync(req.files[0].path);
@@ -64,6 +72,8 @@ app.put("/content/hero", upload.array("images", 1), async (req, res) => {
     await hero.save();
     res.json(hero);
   } catch (error) {
+    console.error("Erro ao salvar imagem da hero:", error);
+    if (error.response) console.error("Resposta imgbb:", error.response.data);
     res.status(500).json({ message: "Erro ao salvar imagem da hero" });
   }
 });
