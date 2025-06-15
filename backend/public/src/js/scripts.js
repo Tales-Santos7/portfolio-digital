@@ -66,16 +66,15 @@ fetch("https://portfolio-digital.onrender.com/content/logo")
   .catch((error) => console.error("Erro ao carregar logo:", error));
 
 // LOGO-IMAGEM DO RODAPÉ
-fetch("https://portfolio-digital.onrender.com/content/logo")
-  .then((res) => res.json())
-  .then((data) => {
-    if (logoImg && data.images.length > 0) {
+fetch("https://portfolio-digital.onrender.com/content/footer-logo")
+  .then(res => res.json())
+  .then(data => {
+    const logoImg = document.getElementById("footer-logo");
+    if (data.images && data.images.length > 0 && logoImg) {
       logoImg.src = data.images[0];
-    } else {
-      logoImg.src = "./src/img/logo-180x34.jpg";
     }
   })
-  .catch((err) => console.error("Erro ao carregar logo:", err));
+  .catch(err => console.error("Erro ao carregar logo do rodapé:", err));
 
 // HERO IMAGE + SEÇÃO PRINCIPAL
 fetch("https://portfolio-digital.onrender.com/content/hero")

@@ -60,66 +60,55 @@ app.put("/content/logo", async (req, res) => {
 });
 
 // ATUALIZAR A MARCA D'AGUA DO RODAPÉ
-app.put('/content/logo/image', upload.single('image'), async (req, res) => {
+app.get("/content/footer-logo", async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ message: 'Imagem não enviada' });
-    }
-
-    // Prepare form-data para enviar à API do imgbb
-    const FormData = require('form-data');
-    const formData = new FormData();
-    formData.append('image', fs.createReadStream(req.file.path));
-
-    // Enviar para o imgbb
-    const response = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`,
-      formData,
-      { headers: formData.getHeaders() }
-    );
-
-    const imageUrl = response.data.data.url;
-
-    // Apaga arquivo temporário
-    fs.unlinkSync(req.file.path);
-
-    // Atualiza no banco (MongoDB)
-    let logo = await Content.findOne({ section: 'logo' });
-    if (!logo) {
-      logo = new Content({ section: 'logo', images: [] });
-    }
-    logo.images = [imageUrl];
-    await logo.save();
-
-    res.json(logo);
+    const content = await Content.findOne({ section: "footer-logo" });
+    if (!content) return res.json({ images: [] });
+    res.json(content);
   } catch (error) {
-    console.error('Erro ao atualizar imagem da logo:', error);
-    res.status(500).json({ message: 'Erro ao atualizar imagem da logo' });
+    res.status(500).json({ message: "Erro ao obter logo do rodapé" });
   }
 });
 
-app.post('/content/logo', async (req, res) => {
+app.put("/content/footer-logo", upload.single("image"), async (req, res) => {
+  console.log("✅ Rota footer-logo: req.file = ", req.file);
   try {
-    const { title, description, images } = req.body;
+    if (!req.file)
+      return res.status(400).json({ message: "Imagem não enviada" });
+    console.log("✅ Rota recebida com req.file:", req.file);
 
-    // Cria só se não existir (ou você pode permitir criar sempre um novo)
-    const existing = await Content.findOne({ section: 'logo' });
-    if (existing) {
-      return res.status(400).json({ message: 'Logo já existe, use PUT para atualizar' });
+    const formData = new FormData();
+    formData.append("image", fs.createReadStream(req.file.path));
+
+    const response = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${process.env.POSTIMAGES_API_KEY}`,
+      formData,
+      { headers: formData.getHeaders() }
+    );
+    console.log("📦 Resposta imgbb:", response.data.data.url);
+
+    const imageUrl = response.data.data.url;
+    console.log("📦 imgbb upload status:", response.data);
+    fs.unlinkSync(req.file.path);
+
+    let footerLogo = await Content.findOneAndUpdate(
+      { section: "footer-logo" },
+      { images: [imageUrl] },
+      { new: true, upsert: true }
+    );
+
+    if (!footerLogo) {
+      footerLogo = new Content({ section: "footer-logo", images: [] });
     }
 
-    const newLogo = new Content({
-      section: 'logo',
-      title,
-      description,
-      images: images || [],
-    });
+    footerLogo.images = [imageUrl];
+    console.log("🗄️ Antes de gravar no MongoDB:", footerLogo);
+    await footerLogo.save();
 
-    await newLogo.save();
-    res.status(201).json(newLogo);
+    res.json(footerLogo);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Erro ao criar logo' });
+    console.error("Erro ao atualizar logo do rodapé:", error);
+    res.status(500).json({ message: "Erro ao atualizar logo do rodapé" });
   }
 });
 
@@ -127,7 +116,8 @@ app.post('/content/logo', async (req, res) => {
 app.get("/content/site-name", async (req, res) => {
   try {
     const item = await Content.findOne({ section: "site-name" });
-    if (!item) return res.status(404).json({ message: "Site name não definido" });
+    if (!item)
+      return res.status(404).json({ message: "Site name não definido" });
     res.json(item);
   } catch (err) {
     res.status(500).json({ message: "Erro ao obter nome do site" });
@@ -182,7 +172,9 @@ app.put("/content/hero", upload.array("images", 1), async (req, res) => {
     const imageUrl = response.data.data.url;
     fs.unlinkSync(req.files[0].path);
 
-    let hero = await Content.findOne({ section: "hero" }) || new Content({ section: "hero", images: [] });
+    let hero =
+      (await Content.findOne({ section: "hero" })) ||
+      new Content({ section: "hero", images: [] });
     hero.images = [imageUrl];
     await hero.save();
 
@@ -191,20 +183,26 @@ app.put("/content/hero", upload.array("images", 1), async (req, res) => {
     console.error("🔴 Erro ao salvar imagem da hero:", error);
 
     if (error.response) {
-      console.error("📦 Resposta do imgbb:", error.response.status, error.response.data);
+      console.error(
+        "📦 Resposta do imgbb:",
+        error.response.status,
+        error.response.data
+      );
     }
     return res.status(500).json({ message: "Erro ao salvar imagem da hero" });
   }
-}); 
+});
 
 // GALERIA
 app.delete("/content/gallery", async (req, res) => {
   try {
     const { imageUrl } = req.query;
-    if (!imageUrl) return res.status(400).json({ message: "URL da imagem não fornecida" });
+    if (!imageUrl)
+      return res.status(400).json({ message: "URL da imagem não fornecida" });
 
     const gallery = await Content.findOne({ section: "gallery" });
-    if (!gallery) return res.status(404).json({ message: "Galeria não encontrada" });
+    if (!gallery)
+      return res.status(404).json({ message: "Galeria não encontrada" });
 
     gallery.images = gallery.images.filter((image) => image !== imageUrl);
     await gallery.save();
@@ -221,14 +219,20 @@ app.put("/content/gallery/update", upload.single("image"), async (req, res) => {
   try {
     const { oldImageUrl } = req.body;
     if (!oldImageUrl || !req.file) {
-      return res.status(400).json({ message: "Dados insuficientes para atualizar a imagem." });
+      return res
+        .status(400)
+        .json({ message: "Dados insuficientes para atualizar a imagem." });
     }
 
     const gallery = await Content.findOne({ section: "gallery" });
-    if (!gallery) return res.status(404).json({ message: "Galeria não encontrada" });
+    if (!gallery)
+      return res.status(404).json({ message: "Galeria não encontrada" });
 
     const index = gallery.images.indexOf(oldImageUrl);
-    if (index === -1) return res.status(404).json({ message: "Imagem não encontrada na galeria" });
+    if (index === -1)
+      return res
+        .status(404)
+        .json({ message: "Imagem não encontrada na galeria" });
 
     const formData = new FormData();
     formData.append("image", fs.createReadStream(req.file.path));
@@ -313,7 +317,6 @@ app.get("/content/theme", async (req, res) => {
     res.status(500).json({ message: "Erro ao obter o tema" });
   }
 });
-
 
 app.put("/content/:section", async (req, res) => {
   const { section } = req.params;
@@ -464,7 +467,15 @@ app.post("/social-links", async (req, res) => {
   try {
     const { name, url } = req.body;
 
-    const iconNames = ["instagram", "threads", "tiktok", "facebook", "linkedin", "github", "twitter"];
+    const iconNames = [
+      "instagram",
+      "threads",
+      "tiktok",
+      "facebook",
+      "linkedin",
+      "github",
+      "twitter",
+    ];
     if (!iconNames.includes(name.toLowerCase())) {
       return res.status(400).json({ message: "Nome de ícone inválido" });
     }
@@ -481,7 +492,11 @@ app.post("/social-links", async (req, res) => {
 app.put("/social-links/:id", async (req, res) => {
   try {
     const { url } = req.body;
-    const link = await SocialLink.findByIdAndUpdate(req.params.id, { url }, { new: true });
+    const link = await SocialLink.findByIdAndUpdate(
+      req.params.id,
+      { url },
+      { new: true }
+    );
     res.json(link);
   } catch (error) {
     res.status(500).json({ message: "Erro ao atualizar link da rede social" });
@@ -507,6 +522,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(
-    `Servidor backend rodando em http://localhost:${port}`);
+  console.log(`Servidor backend rodando em http://localhost:${port}`);
 });

@@ -18,6 +18,7 @@ import ThemeColorForm from "./components/ThemeColorForm";
 import ImgHero from "./components/ImgHero";
 import LogoForm from "./components/LogoForm";
 import SiteNameForm from "./components/SiteNameForm";
+import FooterLogoForm from "./components/FooterLogoForm";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -104,6 +105,7 @@ function App() {
                   <SiteNameForm />
                   <SocialLinksAdmin />
                   <LogoForm />
+                  <FooterLogoForm />
                   <ImgHero />
                   <ThemeColorForm />
                   <MainSectionForm />
