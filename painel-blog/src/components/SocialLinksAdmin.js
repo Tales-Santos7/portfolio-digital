@@ -87,12 +87,13 @@ function SocialLinksAdmin() {
       <form className="form-redes" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nome"
+          placeholder="Nome (ex: instagram, threads)"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value.toLowerCase())}
           required
           disabled={editingId}
         />
+
         <input
           type="text"
           placeholder="URL"

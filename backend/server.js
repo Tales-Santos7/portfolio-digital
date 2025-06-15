@@ -34,6 +34,121 @@ const contentSchema = new mongoose.Schema({
 });
 const Content = mongoose.model("Content", contentSchema);
 
+// ATUALIZAR A MARCA D'AGUA DO NAV
+app.get("/content/logo", async (req, res) => {
+  try {
+    const logo = await Content.findOne({ section: "logo" });
+    if (!logo) return res.status(404).json({ message: "Logo não encontrada" });
+    res.json(logo);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao obter logo" });
+  }
+});
+
+app.put("/content/logo", async (req, res) => {
+  const { title, description, images } = req.body;
+  try {
+    const logo = await Content.findOneAndUpdate(
+      { section: "logo" },
+      { title, description, images: images || [] }, // aqui usa images do corpo ou vazio
+      { new: true, upsert: true }
+    );
+    res.json(logo);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao atualizar a logo textual" });
+  }
+});
+
+// ATUALIZAR A MARCA D'AGUA DO RODAPÉ
+app.put('/content/logo/image', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'Imagem não enviada' });
+    }
+
+    // Prepare form-data para enviar à API do imgbb
+    const FormData = require('form-data');
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(req.file.path));
+
+    // Enviar para o imgbb
+    const response = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`,
+      formData,
+      { headers: formData.getHeaders() }
+    );
+
+    const imageUrl = response.data.data.url;
+
+    // Apaga arquivo temporário
+    fs.unlinkSync(req.file.path);
+
+    // Atualiza no banco (MongoDB)
+    let logo = await Content.findOne({ section: 'logo' });
+    if (!logo) {
+      logo = new Content({ section: 'logo', images: [] });
+    }
+    logo.images = [imageUrl];
+    await logo.save();
+
+    res.json(logo);
+  } catch (error) {
+    console.error('Erro ao atualizar imagem da logo:', error);
+    res.status(500).json({ message: 'Erro ao atualizar imagem da logo' });
+  }
+});
+
+app.post('/content/logo', async (req, res) => {
+  try {
+    const { title, description, images } = req.body;
+
+    // Cria só se não existir (ou você pode permitir criar sempre um novo)
+    const existing = await Content.findOne({ section: 'logo' });
+    if (existing) {
+      return res.status(400).json({ message: 'Logo já existe, use PUT para atualizar' });
+    }
+
+    const newLogo = new Content({
+      section: 'logo',
+      title,
+      description,
+      images: images || [],
+    });
+
+    await newLogo.save();
+    res.status(201).json(newLogo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao criar logo' });
+  }
+});
+
+// NOME DO SITE
+app.get("/content/site-name", async (req, res) => {
+  try {
+    const item = await Content.findOne({ section: "site-name" });
+    if (!item) return res.status(404).json({ message: "Site name não definido" });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao obter nome do site" });
+  }
+});
+
+// atualizar nome do site
+app.put("/content/site-name", async (req, res) => {
+  const { title } = req.body;
+  try {
+    const updated = await Content.findOneAndUpdate(
+      { section: "site-name" },
+      { title },
+      { new: true, upsert: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao atualizar nome do site" });
+  }
+});
+
 // IMAGEM DA HERO
 app.get("/content/hero", async (req, res) => {
   try {
@@ -334,6 +449,7 @@ const socialSchema = new mongoose.Schema({
 });
 const SocialLink = mongoose.model("SocialLink", socialSchema);
 
+// Obter todas as redes sociais
 app.get("/social-links", async (req, res) => {
   try {
     const links = await SocialLink.find();
@@ -343,6 +459,25 @@ app.get("/social-links", async (req, res) => {
   }
 });
 
+// Adicionar nova rede social
+app.post("/social-links", async (req, res) => {
+  try {
+    const { name, url } = req.body;
+
+    const iconNames = ["instagram", "threads", "tiktok", "facebook", "linkedin", "github", "twitter"];
+    if (!iconNames.includes(name.toLowerCase())) {
+      return res.status(400).json({ message: "Nome de ícone inválido" });
+    }
+
+    const newLink = new SocialLink({ name, url });
+    await newLink.save();
+    res.status(201).json(newLink);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao adicionar link de rede social" });
+  }
+});
+
+// Atualizar link de rede social
 app.put("/social-links/:id", async (req, res) => {
   try {
     const { url } = req.body;
@@ -353,17 +488,15 @@ app.put("/social-links/:id", async (req, res) => {
   }
 });
 
-app.post("/social-links", async (req, res) => {
+// Remover rede social
+app.delete("/social-links/:id", async (req, res) => {
   try {
-    const { name, url } = req.body;
-    const newLink = new SocialLink({ name, url });
-    await newLink.save();
-    res.status(201).json(newLink);
+    await SocialLink.findByIdAndDelete(req.params.id);
+    res.json({ message: "Rede social removida com sucesso" });
   } catch (error) {
-    res.status(500).json({ message: "Erro ao adicionar link de rede social" });
+    res.status(500).json({ message: "Erro ao remover rede social" });
   }
 });
-
 
 // Serve os ficheiros estáticos da aplicação React
 app.use(express.static(path.join(__dirname, "public"))); // ou "build" se estiveres a usar `npm run build`

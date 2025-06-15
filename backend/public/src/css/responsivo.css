@@ -19,6 +19,10 @@
     width: 100%;
   }
 
+  #social-icons-bottom i {
+    margin-right: 30px !important;
+  }
+
   .main-section .content {
     left: 5%;
   }
@@ -61,15 +65,7 @@
 
   .menu .size-nav {
     width: 10% !important;
-  }
-
-  .menu {
-    padding-bottom: 10px;
-  }
-
-  .menu ul {
-    color: #ffffff;
-    margin-left: 54%;
+    font-size: 20px !important;
   }
 }
 
@@ -80,6 +76,18 @@
 
   .menu .size-nav {
     font-size: 20px !important;
+  }
+}
+
+@media (max-width: 1110px) {
+  #social-icons-top a {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .menu ul {
+    margin-left: 70% !important;
   }
 }
 
@@ -123,15 +131,16 @@
   }
 
   .dropbtn {
-    margin-left: 85%;
+    margin-left: 87%;
     position: fixed;
     font-size: 40px;
     list-style-type: none;
     text-decoration: none;
     float: right;
     color: #ffffff;
-    z-index: 100 ;
+    z-index: 100;
     cursor: pointer;
+    margin-top: -2.5% !important;
   }
 
   .dropdown-content img {
@@ -160,17 +169,63 @@
     border-radius: 20px;
   }
 
+  #social-icons-bottom {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    gap: 0;
+  }
+
+  #social-icons-bottom a.fim-drop {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 24px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    border: none;
+  }
+
+  /* Remove espaçamentos extras dos ícones */
+  #social-icons-bottom i {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    display: block;
+  }
+
+  /* Ícone dentro do link - centralizado */
+  #social-icons-bottom a.fim-drop i {
+    pointer-events: none;
+  }
+
+  #social-icons-bottom a.fim-drop:hover {
+    color: #fffacd;
+    transform: scale(1.1);
+  }
+
   .fim-drop {
-    position: absolute;
+    position: relative;
     text-align: center;
+    padding: 10px;
     margin-top: 10px !important;
     font-size: 30px !important;
     margin-left: 25px !important;
+    display: inline-block;
+    margin: 8px 10px;
+    color: white;
   }
 
-  .fim-drop-1 {
+  /* .fim-drop-1 {
     margin-left: 60px !important;
-  }
+  } */
 
   .fim-drop:hover {
     background-color: inherit !important;

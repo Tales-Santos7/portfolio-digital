@@ -16,6 +16,8 @@ import Login from "./Login";
 import SocialLinksAdmin from "./components/SocialLinksAdmin";
 import ThemeColorForm from "./components/ThemeColorForm";
 import ImgHero from "./components/ImgHero";
+import LogoForm from "./components/LogoForm";
+import SiteNameForm from "./components/SiteNameForm";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -53,9 +55,11 @@ function App() {
               Logout
             </button>
 
-             <button  className="btn-modes-floating"
+            <button
+              className="btn-modes-floating"
               onClick={toggleDarkMode}
-              aria-label="Alternar modo escuro">
+              aria-label="Alternar modo escuro"
+            >
               {darkMode ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +101,9 @@ function App() {
             element={
               isAuthenticated ? (
                 <>
+                  <SiteNameForm />
                   <SocialLinksAdmin />
+                  <LogoForm />
                   <ImgHero />
                   <ThemeColorForm />
                   <MainSectionForm />
