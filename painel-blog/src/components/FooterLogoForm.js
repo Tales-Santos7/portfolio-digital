@@ -5,7 +5,7 @@ export default function FooterLogoForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [status, setStatus] = useState("");
-  const baseUrl = "https://portfolio-digital-g7mp.onrender.com";
+ const baseUrl = process.env.REACT_APP_API_URL || "https://portfolio-digital-g7mp.onrender.com";
 
   useEffect(() => {
     axios

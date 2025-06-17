@@ -91,19 +91,16 @@ app.put("/content/footer-logo", upload.single("image"), async (req, res) => {
     console.log("📦 imgbb upload status:", response.data);
     fs.unlinkSync(req.file.path);
 
-    let footerLogo = await Content.findOneAndUpdate(
-      { section: "footer-logo" },
-      { images: [imageUrl] },
-      { new: true, upsert: true }
-    );
+    let footerLogo = await Content.findOne({ section: "footer-logo" });
 
     if (!footerLogo) {
-      footerLogo = new Content({ section: "footer-logo", images: [] });
+      footerLogo = new Content({ section: "footer-logo", images: [imageUrl] });
+    } else {
+      footerLogo.images = [imageUrl];
     }
 
-    footerLogo.images = [imageUrl];
-    console.log("🗄️ Antes de gravar no MongoDB:", footerLogo);
     await footerLogo.save();
+    res.json(footerLogo);
 
     res.json(footerLogo);
   } catch (error) {

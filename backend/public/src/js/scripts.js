@@ -65,16 +65,18 @@ fetch("https://portfolio-digital-g7mp.onrender.com/content/logo")
   })
   .catch((error) => console.error("Erro ao carregar logo:", error));
 
-// LOGO-IMAGEM DO RODAPÉ
-fetch("https://portfolio-digital-g7mp.onrender.com/content/footer-logo")
-  .then((res) => res.json())
-  .then((data) => {
-    const logoImg = document.getElementById("footer-logo");
-    if (data.images && data.images.length > 0 && logoImg) {
-      logoImg.src = data.images[0];
-    }
-  })
-  .catch((err) => console.error("Erro ao carregar logo do rodapé:", err));
+// LOGO-IMAGEM DO RODAP
+window.addEventListener("DOMContentLoaded", () => {
+  fetch("https://portfolio-digital-g7mp.onrender.com/content/footer-logo")
+    .then((res) => res.json())
+    .then((data) => {
+      const logoImg = document.getElementById("footer-logo");
+      if (logoImg && data.images?.length > 0) {
+        logoImg.src = data.images[0];
+      }
+    })
+    .catch((err) => console.error("Erro ao carregar logo:", err));
+});
 
 // HERO IMAGE + SEÇÃO PRINCIPAL
 fetch("https://portfolio-digital-g7mp.onrender.com/content/hero")
