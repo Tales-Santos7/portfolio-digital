@@ -23,7 +23,7 @@ const PostForm = () => {
 
     try {
       await axios.post(
-        "https://portfolio-digital.onrender.com/blog",
+        "https://portfolio-digital-g7mp.onrender.com/blog",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

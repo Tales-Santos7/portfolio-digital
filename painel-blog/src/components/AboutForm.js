@@ -9,7 +9,7 @@ const AboutForm = () => {
     const fetchAbout = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital.onrender.com/content/about"
+          "https://portfolio-digital-g7mp.onrender.com/content/about"
         );
         setTitle(response.data.title);
         setDescription(response.data.description);
@@ -23,10 +23,13 @@ const AboutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("https://portfolio-digital.onrender.com/content/about", {
-        title,
-        description,
-      });
+      await axios.put(
+        "https://portfolio-digital-g7mp.onrender.com/content/about",
+        {
+          title,
+          description,
+        }
+      );
       alert('Seção "Sobre Mim" atualizada com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar seção "Sobre Mim":', error);

@@ -5,16 +5,17 @@ export default function FooterLogoForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [status, setStatus] = useState("");
-  const baseUrl = "https://portfolio-digital.onrender.com";
+  const baseUrl = "https://portfolio-digital-g7mp.onrender.com";
 
   useEffect(() => {
-    axios.get(`${baseUrl}/content/footer-logo`)
-      .then(res => {
+    axios
+      .get(`${baseUrl}/content/footer-logo`)
+      .then((res) => {
         if (res.data.images && res.data.images.length > 0) {
           setImageUrl(res.data.images[0]);
         }
       })
-      .catch(err => console.error("Erro ao buscar logo:", err));
+      .catch((err) => console.error("Erro ao buscar logo:", err));
   }, []);
 
   const handleFileChange = (e) => {
@@ -55,7 +56,9 @@ export default function FooterLogoForm() {
 
       {imageUrl && (
         <div style={{ marginBottom: "1rem" }}>
-          <p><strong>Imagem atual:</strong></p>
+          <p>
+            <strong>Imagem atual:</strong>
+          </p>
           <img src={imageUrl} alt="Logo atual" style={{ maxHeight: "50px" }} />
         </div>
       )}

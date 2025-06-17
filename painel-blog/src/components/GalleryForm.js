@@ -7,7 +7,7 @@ const GalleryForm = () => {
   const [updateImageIndex, setUpdateImageIndex] = useState(null);
   const [updateFile, setUpdateFile] = useState(null);
 
-  const baseUrl = "https://portfolio-digital.onrender.com";
+  const baseUrl = "https://portfolio-digital-g7mp.onrender.com";
 
   useEffect(() => {
     const fetchGallery = async () => {

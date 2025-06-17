@@ -13,7 +13,7 @@ export default function PostDetails() {
     const fetchPost = async () => {
       try {
         const res = await axios.get(
-          `https://portfolio-digital.onrender.com/blog/${id}`
+          `https://portfolio-digital-g7mp.onrender.com/blog/${id}`
         );
         setPost(res.data);
       } catch (error) {

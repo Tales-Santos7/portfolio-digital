@@ -11,7 +11,7 @@ const MainSectionForm = () => {
     const fetchMainSection = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital.onrender.com/content/mainSection"
+          "https://portfolio-digital-g7mp.onrender.com/content/mainSection"
         );
         if (response.data) {
           setTitle(response.data.title);
@@ -31,7 +31,7 @@ const MainSectionForm = () => {
 
     try {
       await axios.put(
-        "https://portfolio-digital.onrender.com/content/mainSection",
+        "https://portfolio-digital-g7mp.onrender.com/content/mainSection",
         {
           title,
           description,

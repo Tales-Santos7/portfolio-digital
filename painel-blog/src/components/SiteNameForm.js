@@ -6,21 +6,29 @@ export default function SiteNameForm() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    axios.get("https://portfolio-digital.onrender.com/content/site-name").then(res => {
-      setTitle(res.data.title || "");
-    }).catch(() => {/* sem)</fallback> */});
+    axios
+      .get("https://portfolio-digital-g7mp.onrender.com/content/site-name")
+      .then((res) => {
+        setTitle(res.data.title || "");
+      })
+      .catch(() => {
+        /* sem)</fallback> */
+      });
   }, []);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("https://portfolio-digital.onrender.com/content/site-name", { title });
+      await axios.put(
+        "https://portfolio-digital-g7mp.onrender.com/content/site-name",
+        { title }
+      );
       setStatus("Nome salvo com sucesso!");
     } catch {
       setStatus("Erro ao salvar nome.");
     }
   };
-  
+
   return (
     <div className="card-form">
       <h2>Nome do Site</h2>
@@ -28,11 +36,13 @@ export default function SiteNameForm() {
         <input
           type="text"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="Ex: User - Lifestyle | Beauty | Study"
           required
         />
-        <button type="submit" className="btn-blue margin">Salvar</button>
+        <button type="submit" className="btn-blue margin">
+          Salvar
+        </button>
       </form>
       {status && <p>{status}</p>}
     </div>

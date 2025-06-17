@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const LogoForm = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const fetchLogo = async () => {
       try {
-        const res = await axios.get('https://portfolio-digital.onrender.com/content/logo');
+        const res = await axios.get(
+          "https://portfolio-digital-g7mp.onrender.com/content/logo"
+        );
         if (res.data) {
-          setTitle(res.data.title || '');
-          setDescription(res.data.description || '');
+          setTitle(res.data.title || "");
+          setDescription(res.data.description || "");
         }
       } catch (err) {
-        console.error('Erro ao buscar logo:', err);
+        console.error("Erro ao buscar logo:", err);
       }
     };
 
@@ -25,14 +27,17 @@ const LogoForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('https://portfolio-digital.onrender.com/content/logo', {
-        title,
-        description,
-      });
-      setStatus('Texto da logo atualizado com sucesso!');
+      await axios.put(
+        "https://portfolio-digital-g7mp.onrender.com/content/logo",
+        {
+          title,
+          description,
+        }
+      );
+      setStatus("Texto da logo atualizado com sucesso!");
     } catch (err) {
-      console.error('Erro ao atualizar texto da logo:', err);
-      setStatus('Erro ao atualizar logo.');
+      console.error("Erro ao atualizar texto da logo:", err);
+      setStatus("Erro ao atualizar logo.");
     }
   };
 
@@ -58,7 +63,9 @@ const LogoForm = () => {
             placeholder="Ex: Lifestyle - Beauty - Study"
           />
         </div>
-        <button className="btn-blue margin" type="submit">Salvar</button>
+        <button className="btn-blue margin" type="submit">
+          Salvar
+        </button>
       </form>
       {status && <p>{status}</p>}
     </div>

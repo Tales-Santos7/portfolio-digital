@@ -1,5 +1,5 @@
 // COR DO TEMA
-fetch("https://portfolio-digital.onrender.com/content/theme")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/theme")
   .then((res) => res.json())
   .then((data) => {
     if (data.color) {
@@ -8,7 +8,7 @@ fetch("https://portfolio-digital.onrender.com/content/theme")
   });
 
 // Nome do site (title + rodapé)
-fetch("https://portfolio-digital.onrender.com/content/site-name")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/site-name")
   .then((res) => {
     if (!res.ok) throw res;
     return res.json();
@@ -24,7 +24,7 @@ fetch("https://portfolio-digital.onrender.com/content/site-name")
 
 // ÍCONES DO NAV E MENU MOBILE
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("https://portfolio-digital.onrender.com/social-links")
+  fetch("https://portfolio-digital-g7mp.onrender.com/social-links")
     .then((res) => res.json())
     .then((links) => {
       const top = document.getElementById("social-icons-top");
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // LOGO TEXTO DO NAV
-fetch("https://portfolio-digital.onrender.com/content/logo")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/logo")
   .then((res) => res.json())
   .then((data) => {
     const container = document.getElementById("logo-container");
@@ -66,18 +66,18 @@ fetch("https://portfolio-digital.onrender.com/content/logo")
   .catch((error) => console.error("Erro ao carregar logo:", error));
 
 // LOGO-IMAGEM DO RODAPÉ
-fetch("https://portfolio-digital.onrender.com/content/footer-logo")
-  .then(res => res.json())
-  .then(data => {
+fetch("https://portfolio-digital-g7mp.onrender.com/content/footer-logo")
+  .then((res) => res.json())
+  .then((data) => {
     const logoImg = document.getElementById("footer-logo");
     if (data.images && data.images.length > 0 && logoImg) {
       logoImg.src = data.images[0];
     }
   })
-  .catch(err => console.error("Erro ao carregar logo do rodapé:", err));
+  .catch((err) => console.error("Erro ao carregar logo do rodapé:", err));
 
 // HERO IMAGE + SEÇÃO PRINCIPAL
-fetch("https://portfolio-digital.onrender.com/content/hero")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/hero")
   .then((res) => res.json())
   .then((data) => {
     const heroImage = document.getElementById("hero-photo");
@@ -88,7 +88,7 @@ fetch("https://portfolio-digital.onrender.com/content/hero")
   })
   .catch((error) => console.error("Erro ao carregar imagem da hero:", error));
 
-fetch("https://portfolio-digital.onrender.com/content/mainSection")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/mainSection")
   .then((response) => {
     if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
     return response.json();
@@ -100,7 +100,7 @@ fetch("https://portfolio-digital.onrender.com/content/mainSection")
   .catch((error) => console.error("Erro ao carregar conteúdo:", error));
 
 // GALERIA
-fetch("https://portfolio-digital.onrender.com/content/gallery")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/gallery")
   .then((response) => response.json())
   .then((data) => {
     const container = document.getElementById("galeria-container");
@@ -115,7 +115,7 @@ fetch("https://portfolio-digital.onrender.com/content/gallery")
   .catch((error) => console.error("Erro ao carregar galeria:", error));
 
 // SOBRE MIM
-fetch("https://portfolio-digital.onrender.com/content/about")
+fetch("https://portfolio-digital-g7mp.onrender.com/content/about")
   .then((response) => response.json())
   .then((data) => {
     document.querySelector("#about-title").innerText = data.title;
@@ -157,7 +157,7 @@ function renderPosts() {
     currentPage > 1 ? "inline-block" : "none";
 }
 
-fetch("https://portfolio-digital.onrender.com/blog")
+fetch("https://portfolio-digital-g7mp.onrender.com/blog")
   .then((response) => response.json())
   .then((posts) => {
     allPosts = posts;
@@ -180,7 +180,7 @@ document.getElementById("show-less").addEventListener("click", () => {
 });
 
 // RODAPÉ - REDES SOCIAIS
-fetch("https://portfolio-digital.onrender.com/social-links")
+fetch("https://portfolio-digital-g7mp.onrender.com/social-links")
   .then((response) => response.json())
   .then((links) => {
     const socialList = document.querySelector(".rodape-col-4 ul");
