@@ -37,7 +37,7 @@ export default function SiteNameForm() {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Ex: User - Lifestyle | Beauty | Study"
+          placeholder="Ex: User Santos - Lifestyle"
           required
         />
         <button type="submit" className="btn-blue margin">
