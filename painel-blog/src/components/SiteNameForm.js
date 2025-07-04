@@ -7,7 +7,7 @@ export default function SiteNameForm() {
 
   useEffect(() => {
     axios
-      .get("https://portfolio-digital-g7mp.onrender.com/content/site-name")
+      .get("https://portfolio-digital.onrender.com/content/site-name")
       .then((res) => {
         setTitle(res.data.title || "");
       })
@@ -20,7 +20,7 @@ export default function SiteNameForm() {
     e.preventDefault();
     try {
       await axios.put(
-        "https://portfolio-digital-g7mp.onrender.com/content/site-name",
+        "https://portfolio-digital.onrender.com/content/site-name",
         { title }
       );
       setStatus("Nome salvo com sucesso!");

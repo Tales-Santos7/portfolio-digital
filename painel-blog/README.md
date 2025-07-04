@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [https://portfolio-digital-g7mp.onrender.com](https://portfolio-digital-g7mp.onrender.com) to view it in your browser.
+Open [https://portfolio-digital.onrender.com](https://portfolio-digital.onrender.com) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.

@@ -11,7 +11,7 @@ const ImgHero = () => {
     const fetchHeroImage = async () => {
       try {
         const res = await axios.get(
-          "https://portfolio-digital-g7mp.onrender.com/content/hero"
+          "https://portfolio-digital.onrender.com/content/hero"
         );
         if (res.data.images && res.data.images.length > 0) {
           setHeroImage(res.data.images[0]);
@@ -42,7 +42,7 @@ const ImgHero = () => {
 
     try {
       const res = await axios.put(
-        "https://portfolio-digital-g7mp.onrender.com/content/hero",
+        "https://portfolio-digital.onrender.com/content/hero",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

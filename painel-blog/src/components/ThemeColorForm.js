@@ -7,7 +7,7 @@ function ThemeColorForm() {
 
   useEffect(() => {
     axios
-      .get("https://portfolio-digital-g7mp.onrender.com/content/theme")
+      .get("https://portfolio-digital.onrender.com/content/theme")
       .then((res) => {
         if (res.data && res.data.color) {
           setColor(res.data.color);
@@ -39,7 +39,7 @@ function ThemeColorForm() {
     );
     if (confirmUpdate) {
       axios
-        .put("https://portfolio-digital-g7mp.onrender.com/content/theme", {
+        .put("https://portfolio-digital.onrender.com/content/theme", {
           color,
         })
         .then(() => alert("Cor atualizada com sucesso!"))

@@ -14,7 +14,7 @@ const PostList = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital-g7mp.onrender.com/blog"
+          "https://portfolio-digital.onrender.com/blog"
         );
         setPosts(response.data);
       } catch (error) {
@@ -57,7 +57,7 @@ const PostList = () => {
       }
 
       const response = await axios.put(
-        `https://portfolio-digital-g7mp.onrender.com/blog/${editingPost}`,
+        `https://portfolio-digital.onrender.com/blog/${editingPost}`,
         updatedData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -88,7 +88,7 @@ const PostList = () => {
 
     try {
       await axios.delete(
-        `https://portfolio-digital-g7mp.onrender.com/blog/${postId}`
+        `https://portfolio-digital.onrender.com/blog/${postId}`
       );
       alert("Post excluído com sucesso!");
       setPosts(posts.filter((post) => post._id !== postId));
@@ -141,7 +141,7 @@ const PostList = () => {
                 {post.imageUrl && (
                   <img
                     className="img-post"
-                    src={`https://portfolio-digital-g7mp.onrender.com${post.imageUrl}`}
+                    src={`https://portfolio-digital.onrender.com${post.imageUrl}`}
                     alt={post.title}
                     style={{
                       maxWidth: "100%",

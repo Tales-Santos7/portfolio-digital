@@ -14,7 +14,7 @@ function SocialLinksAdmin() {
 
   const fetchLinks = () => {
     axios
-      .get("https://portfolio-digital-g7mp.onrender.com/social-links")
+      .get("https://portfolio-digital.onrender.com/social-links")
       .then((response) => setSocialLinks(response.data))
       .catch((error) => {
         setStatusMessage("Erro ao buscar redes sociais.");
@@ -31,14 +31,14 @@ function SocialLinksAdmin() {
         );
         if (confirmUpdate) {
           await axios.put(
-            `https://portfolio-digital-g7mp.onrender.com/social-links/${editingId}`,
+            `https://portfolio-digital.onrender.com/social-links/${editingId}`,
             { url }
           );
           setStatusMessage("Link atualizado com sucesso!");
         }
       } else {
         await axios.post(
-          "https://portfolio-digital-g7mp.onrender.com/social-links",
+          "https://portfolio-digital.onrender.com/social-links",
           { name, url }
         );
         setStatusMessage("Link criado com sucesso!");
@@ -67,7 +67,7 @@ function SocialLinksAdmin() {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `https://portfolio-digital-g7mp.onrender.com/social-links/${id}`
+          `https://portfolio-digital.onrender.com/social-links/${id}`
         );
         setStatusMessage("Link excluído com sucesso!");
         fetchLinks();

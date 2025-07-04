@@ -9,7 +9,7 @@ const MainSectionDisplay = () => {
     const fetchMainSection = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital-g7mp.onrender.com/content/mainSection"
+          "https://portfolio-digital.onrender.com/content/mainSection"
         );
         setMainSection(response.data);
       } catch (error) {
