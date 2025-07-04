@@ -200,3 +200,5 @@ fetch("https://portfolio-digital.onrender.com/social-links")
     });
   })
   .catch((error) => console.error("Erro ao carregar redes sociais:", error));
+
+  
