@@ -30,7 +30,7 @@ const Login = ({ onLogin }) => {
         <input
           className="input-size"
           type="text"
-          placeholder="Usuário"
+          placeholder="Usuário = admin"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
           <input
             className="input-size"
             type={showPassword ? "text" : "password"}
-            placeholder="Senha"
+            placeholder="Senha = 1234"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
