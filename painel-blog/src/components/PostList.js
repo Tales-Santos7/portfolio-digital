@@ -7,7 +7,7 @@ const PostList = () => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    image: null,
+    image: "",
   });
 
   useEffect(() => {
