@@ -92,12 +92,6 @@ function App() {
       component: <MainSectionForm />,
     },
     {
-      id: "main-display",
-      icon: "mdi:monitor",
-      label: "Visualização",
-      component: <MainSectionDisplay />,
-    },
-    {
       id: "gallery",
       icon: "mdi:image-multiple",
       label: "Galeria",
