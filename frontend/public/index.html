@@ -134,6 +134,25 @@
           <ul>
           </ul>
         </div>
+        <script>fetch("https://portfolio-digital-g7mp.onrender.com/social-links")
+            .then((response) => response.json())
+            .then((links) => {
+              const socialList = document.querySelector(".rodape-col-4 ul");
+              if (!socialList) return;
+              socialList.innerHTML = "";
+
+              links.forEach((link) => {
+                const listItem = document.createElement("li");
+                const anchor = document.createElement("a");
+                anchor.href = link.url;
+                anchor.textContent = link.name;
+                anchor.target = "_blank";
+                listItem.appendChild(anchor);
+                socialList.appendChild(listItem);
+              });
+            })
+            .catch((error) => console.error("Erro ao carregar redes sociais:", error));
+        </script>
         <!-- FIM DA SEÇÃO CONTATO -->
       </div>
     </div>
