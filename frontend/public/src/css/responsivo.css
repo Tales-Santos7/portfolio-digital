@@ -2,6 +2,45 @@
   --primary-color: ##d10c6e;
 }
 
+.dropdown-content.active {
+  display: block !important;
+}
+
+.dropdown-content span {
+  color: #f4ecdf;
+  text-align: center;
+  margin-left: 60px;
+  font-size: 12px;
+}
+
+@media (min-width: 780px) and (max-width: 899px) {
+  .none {
+    display: none;
+  }
+}
+
+/* Estilo do Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
 @media (max-width: 500px) {
   body {
     overflow-x: hidden !important;
@@ -140,7 +179,6 @@
     color: #ffffff;
     z-index: 100;
     cursor: pointer;
-    margin-top: -2.5% !important;
   }
 
   .dropdown-content img {
@@ -178,7 +216,8 @@
 
   #social-icons-bottom a.fim-drop {
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,9 +227,12 @@
     color: white;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 30px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     border: none;
+    position: relative;
+    text-align: center;
+    display: inline-block;
   }
 
   /* Remove espaçamentos extras dos ícones */
@@ -207,30 +249,8 @@
   }
 
   #social-icons-bottom a.fim-drop:hover {
-    color: #fffacd;
+    color: #33053f ;
     transform: scale(1.1);
-  }
-
-  .fim-drop {
-    position: relative;
-    text-align: center;
-    padding: 10px;
-    margin-top: 10px !important;
-    font-size: 30px !important;
-    margin-left: 25px !important;
-    display: inline-block;
-    margin: 8px 10px;
-    color: white;
-  }
-
-  /* .fim-drop-1 {
-    margin-left: 60px !important;
-  } */
-
-  .fim-drop:hover {
-    background-color: inherit !important;
-    border: none !important;
-    color: #33053f !important;
   }
 
   .dropdown-content.active {

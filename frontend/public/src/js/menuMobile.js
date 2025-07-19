@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const menuToggle = document.getElementById("toggle"); // Definindo o menuToggle
+    const menuToggle = document.getElementById("toggle");
     const dropdown = document.querySelector(".dropdown");
     const dropdownContent = dropdown.querySelector(".dropdown-content");
   
     menuToggle.addEventListener("click", function (event) {
-      event.stopPropagation(); // Impede a propagação
+      event.stopPropagation();
       dropdownContent.classList.toggle("active");
     });
   
