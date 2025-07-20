@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function SiteNameForm() {
   const [title, setTitle] = useState("");
@@ -20,10 +20,7 @@ export default function SiteNameForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(
-        `${apiUrl}/content/site-name`,
-        { title }
-      );
+      await axios.put(`${apiUrl}/content/site-name`, { title });
       setStatus("Nome salvo com sucesso!");
     } catch {
       setStatus("Erro ao salvar nome.");

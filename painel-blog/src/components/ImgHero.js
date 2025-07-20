@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const ImgHero = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -11,9 +11,7 @@ const ImgHero = () => {
   useEffect(() => {
     const fetchHeroImage = async () => {
       try {
-        const res = await axios.get(
-          `${apiUrl}/content/hero`
-        );
+        const res = await axios.get(`${apiUrl}/content/hero`);
         if (res.data.images && res.data.images.length > 0) {
           setHeroImage(res.data.images[0]);
         }
@@ -42,13 +40,9 @@ const ImgHero = () => {
     formData.append("images", selectedImage); // nome coerente com `upload.array("images", ...)`
 
     try {
-      const res = await axios.put(
-        `${apiUrl}/content/hero`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const res = await axios.put(`${apiUrl}/content/hero`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       console.log("✅ Upload bem-sucedido:", res.data);
       if (res.data.images && res.data.images.length > 0) {

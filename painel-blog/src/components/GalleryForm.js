@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const GalleryForm = () => {
   const [images, setImages] = useState([]);

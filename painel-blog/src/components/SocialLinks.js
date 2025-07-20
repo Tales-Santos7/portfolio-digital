@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function SocialLinks() {
   const [socialLinks, setSocialLinks] = useState([]);

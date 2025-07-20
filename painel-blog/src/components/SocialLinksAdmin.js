@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function SocialLinksAdmin() {
   const [socialLinks, setSocialLinks] = useState([]);
@@ -31,17 +31,11 @@ function SocialLinksAdmin() {
           "Tem certeza de que deseja atualizar este link?"
         );
         if (confirmUpdate) {
-          await axios.put(
-            `${apiUrl}/social-links/${editingId}`,
-            { url }
-          );
+          await axios.put(`${apiUrl}/social-links/${editingId}`, { url });
           setStatusMessage("Link atualizado com sucesso!");
         }
       } else {
-        await axios.post(
-          "${apiUrl}/social-links",
-          { name, url }
-        );
+        await axios.post("${apiUrl}/social-links", { name, url });
         setStatusMessage("Link criado com sucesso!");
       }
 
@@ -67,9 +61,7 @@ function SocialLinksAdmin() {
     );
     if (confirmDelete) {
       try {
-        await axios.delete(
-          `${apiUrl}/social-links/${id}`
-        );
+        await axios.delete(`${apiUrl}/social-links/${id}`);
         setStatusMessage("Link excluído com sucesso!");
         fetchLinks();
       } catch (error) {

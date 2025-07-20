@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const LogoForm = () => {
   const [title, setTitle] = useState("");
@@ -10,9 +10,7 @@ const LogoForm = () => {
   useEffect(() => {
     const fetchLogo = async () => {
       try {
-        const res = await axios.get(
-          `${apiUrl}/content/logo`
-        );
+        const res = await axios.get(`${apiUrl}/content/logo`);
         if (res.data) {
           setTitle(res.data.title || "");
           setDescription(res.data.description || "");
