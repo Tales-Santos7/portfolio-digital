@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const MainSectionDisplay = () => {
   const [mainSection, setMainSection] = useState(null);
@@ -9,7 +10,7 @@ const MainSectionDisplay = () => {
     const fetchMainSection = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital.onrender.com/content/mainSection"
+          `${apiUrl}/content/mainSection`
         );
         setMainSection(response.data);
       } catch (error) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 function ThemeColorForm() {
   const [color, setColor] = useState("#ff007f");
@@ -7,7 +8,7 @@ function ThemeColorForm() {
 
   useEffect(() => {
     axios
-      .get("https://portfolio-digital.onrender.com/content/theme")
+      .get(`${apiUrl}/content/theme`)
       .then((res) => {
         if (res.data && res.data.color) {
           setColor(res.data.color);
@@ -39,7 +40,7 @@ function ThemeColorForm() {
     );
     if (confirmUpdate) {
       axios
-        .put("https://portfolio-digital.onrender.com/content/theme", {
+        .put(`${apiUrl}/content/theme`, {
           color,
         })
         .then(() => alert("Cor atualizada com sucesso!"))

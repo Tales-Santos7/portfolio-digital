@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const ImgHero = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -11,7 +12,7 @@ const ImgHero = () => {
     const fetchHeroImage = async () => {
       try {
         const res = await axios.get(
-          "https://portfolio-digital.onrender.com/content/hero"
+          `${apiUrl}/content/hero`
         );
         if (res.data.images && res.data.images.length > 0) {
           setHeroImage(res.data.images[0]);
@@ -42,7 +43,7 @@ const ImgHero = () => {
 
     try {
       const res = await axios.put(
-        "https://portfolio-digital.onrender.com/content/hero",
+        `${apiUrl}/content/hero`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

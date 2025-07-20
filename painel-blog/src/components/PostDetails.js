@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaArrowLeft } from "react-icons/fa";
+const apiUrl = import.meta.env.API_URL;
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ export default function PostDetails() {
     const fetchPost = async () => {
       try {
         const res = await axios.get(
-          `https://portfolio-digital.onrender.com/blog/${id}`
+          `${apiUrl}/blog/${id}`
         );
         setPost(res.data);
       } catch (error) {

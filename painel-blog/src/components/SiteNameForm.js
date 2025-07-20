@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 export default function SiteNameForm() {
   const [title, setTitle] = useState("");
@@ -7,7 +8,7 @@ export default function SiteNameForm() {
 
   useEffect(() => {
     axios
-      .get("https://portfolio-digital.onrender.com/content/site-name")
+      .get(`${apiUrl}/content/site-name`)
       .then((res) => {
         setTitle(res.data.title || "");
       })
@@ -20,7 +21,7 @@ export default function SiteNameForm() {
     e.preventDefault();
     try {
       await axios.put(
-        "https://portfolio-digital.onrender.com/content/site-name",
+        `${apiUrl}/content/site-name`,
         { title }
       );
       setStatus("Nome salvo com sucesso!");

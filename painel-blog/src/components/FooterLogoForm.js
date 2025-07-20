@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 export default function FooterLogoForm() {
   const [imageUrl, setImageUrl] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [status, setStatus] = useState("");
-  const baseUrl =
-    process.env.REACT_APP_API_URL || "https://portfolio-digital.onrender.com";
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/content/footer-logo`)
+      .get(`${apiUrl}/content/footer-logo`)
       .then((res) => {
         if (res.data.images && res.data.images.length > 0) {
           setImageUrl(res.data.images[0]);
@@ -39,7 +38,7 @@ export default function FooterLogoForm() {
     console.log("Arquivo a enviar:", selectedFile); // aqui deve mostrar novamente
 
     try {
-      const res = await axios.put(`${baseUrl}/content/footer-logo`, formData, {
+      const res = await axios.put(`${apiUrl}/content/footer-logo`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setImageUrl(res.data.images[0]);

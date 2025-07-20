@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const AboutForm = () => {
   const [title, setTitle] = useState("");
@@ -8,9 +9,7 @@ const AboutForm = () => {
   useEffect(() => {
     const fetchAbout = async () => {
       try {
-        const response = await axios.get(
-          "https://portfolio-digital.onrender.com/content/about"
-        );
+        const response = await axios.get(`${apiUrl}/content/about`);
         setTitle(response.data.title);
         setDescription(response.data.description);
       } catch (error) {
@@ -23,7 +22,7 @@ const AboutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("https://portfolio-digital.onrender.com/content/about", {
+      await axios.put(`${apiUrl}/content/about`, {
         title,
         description,
       });

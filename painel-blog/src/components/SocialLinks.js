@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 function SocialLinks() {
   const [socialLinks, setSocialLinks] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://portfolio-digital.onrender.com/social-links")
+      .get(`${apiUrl}/social-links`)
       .then((response) => setSocialLinks(response.data))
       .catch((error) => console.error("Erro ao buscar redes sociais:", error));
   }, []);

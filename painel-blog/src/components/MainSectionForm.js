@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const MainSectionForm = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +12,7 @@ const MainSectionForm = () => {
     const fetchMainSection = async () => {
       try {
         const response = await axios.get(
-          "https://portfolio-digital.onrender.com/content/mainSection"
+           `${apiUrl}/content/mainSection`
         );
         if (response.data) {
           setTitle(response.data.title);
@@ -31,7 +32,7 @@ const MainSectionForm = () => {
 
     try {
       await axios.put(
-        "https://portfolio-digital.onrender.com/content/mainSection",
+         `${apiUrl}/content/mainSection`,
         {
           title,
           description,

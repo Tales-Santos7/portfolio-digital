@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const GalleryForm = () => {
   const [images, setImages] = useState([]);
@@ -7,14 +8,12 @@ const GalleryForm = () => {
   const [updateImageIndex, setUpdateImageIndex] = useState(null);
   const [updateFile, setUpdateFile] = useState(null);
 
-  const baseUrl = "https://portfolio-digital.onrender.com";
-
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/content/gallery`);
+        const response = await axios.get(`${apiUrl}/content/gallery`);
         const fullImageUrls = response.data.images.map((path) =>
-          path.startsWith("http") ? path : `${baseUrl}${path}`
+          path.startsWith("http") ? path : `${apiUrl}${path}`
         );
         setImages(fullImageUrls);
       } catch (error) {
@@ -41,7 +40,7 @@ const GalleryForm = () => {
     newImages.forEach((image) => formData.append("images", image));
 
     try {
-      const response = await axios.put(`${baseUrl}/content/gallery`, formData, {
+      const response = await axios.put(`${apiUrl}/content/gallery`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setImages(response.data.images);
@@ -61,7 +60,7 @@ const GalleryForm = () => {
 
     try {
       const response = await axios.delete(
-        `${baseUrl}/content/gallery?imageUrl=${encodeURIComponent(imageUrl)}`
+        `${apiUrl}/content/gallery?imageUrl=${encodeURIComponent(imageUrl)}`
       );
       setImages(response.data.images);
       alert("Imagem removida com sucesso!");
@@ -92,7 +91,7 @@ const GalleryForm = () => {
 
     try {
       const response = await axios.put(
-        `${baseUrl}/content/gallery/update`,
+        `${apiUrl}/content/gallery/update`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -100,7 +99,7 @@ const GalleryForm = () => {
       );
 
       const fullImageUrls = response.data.images.map((path) =>
-        path.startsWith("http") ? path : `${baseUrl}${path}`
+        path.startsWith("http") ? path : `${apiUrl}${path}`
       );
       setImages(fullImageUrls);
       setUpdateImageIndex(null);

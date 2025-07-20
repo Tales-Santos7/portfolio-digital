@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const LogoForm = () => {
   const [title, setTitle] = useState("");
@@ -10,7 +11,7 @@ const LogoForm = () => {
     const fetchLogo = async () => {
       try {
         const res = await axios.get(
-          "https://portfolio-digital.onrender.com/content/logo"
+          `${apiUrl}/content/logo`
         );
         if (res.data) {
           setTitle(res.data.title || "");
@@ -27,7 +28,7 @@ const LogoForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("https://portfolio-digital.onrender.com/content/logo", {
+      await axios.put(`${apiUrl}/content/logo`, {
         title,
         description,
       });

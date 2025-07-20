@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 const PostForm = () => {
   const [title, setTitle] = useState("");
@@ -23,7 +24,7 @@ const PostForm = () => {
 
     try {
       await axios.post(
-        "https://portfolio-digital.onrender.com/blog",
+        `${apiUrl}/blog`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

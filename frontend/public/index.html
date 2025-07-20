@@ -134,7 +134,7 @@
           <ul>
           </ul>
         </div>
-        <script>fetch("https://portfolio-digital-g7mp.onrender.com/social-links")
+        <script>fetch(`${apiUrl}/social-links`)
             .then((response) => response.json())
             .then((links) => {
               const socialList = document.querySelector(".rodape-col-4 ul");

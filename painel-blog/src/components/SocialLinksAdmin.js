@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+const apiUrl = import.meta.env.API_URL;
 
 function SocialLinksAdmin() {
   const [socialLinks, setSocialLinks] = useState([]);
@@ -14,7 +15,7 @@ function SocialLinksAdmin() {
 
   const fetchLinks = () => {
     axios
-      .get("https://portfolio-digital.onrender.com/social-links")
+      .get(`${apiUrl}/social-links`)
       .then((response) => setSocialLinks(response.data))
       .catch((error) => {
         setStatusMessage("Erro ao buscar redes sociais.");
@@ -31,14 +32,14 @@ function SocialLinksAdmin() {
         );
         if (confirmUpdate) {
           await axios.put(
-            `https://portfolio-digital.onrender.com/social-links/${editingId}`,
+            `${apiUrl}/social-links/${editingId}`,
             { url }
           );
           setStatusMessage("Link atualizado com sucesso!");
         }
       } else {
         await axios.post(
-          "https://portfolio-digital.onrender.com/social-links",
+          "${apiUrl}/social-links",
           { name, url }
         );
         setStatusMessage("Link criado com sucesso!");
@@ -67,7 +68,7 @@ function SocialLinksAdmin() {
     if (confirmDelete) {
       try {
         await axios.delete(
-          `https://portfolio-digital.onrender.com/social-links/${id}`
+          `${apiUrl}/social-links/${id}`
         );
         setStatusMessage("Link excluído com sucesso!");
         fetchLinks();
