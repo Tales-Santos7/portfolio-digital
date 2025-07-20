@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./env.js"></script>
   <title>Detalhes do Post</title>
   <style>
     :root {
@@ -81,6 +82,7 @@
 
 <body>
   <script>
+    const apiUrl = window.API_URL;
     fetch(`${apiUrl}/content/theme`)
       .then(res => res.json())
       .then(data => {
@@ -98,10 +100,8 @@
     <a href="./index.html" class="btn">🡸 Voltar para a página inicial</a>
   </div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
+  <script>    const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
-    const apiUrl = import.meta.env.API_URL;
 
     if (!postId) {
       document.getElementById("title").innerText = "ID do post não encontrado.";

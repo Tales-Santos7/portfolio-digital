@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://kit.fontawesome.com/959c1b1c33.js" crossorigin="anonymous"></script>
+   <script src="./env.js"></script>
   <script src="./src/js/scripts.js"></script>
   <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/responsivo.css">
@@ -135,8 +136,7 @@
           </ul>
         </div>
         <script>
-        const apiUrl = import.meta.env.API_URL;
-        fetch(`${apiUrl}/social-links`)
+          fetch(`${apiUrl}/social-links`)
             .then((response) => response.json())
             .then((links) => {
               const socialList = document.querySelector(".rodape-col-4 ul");
@@ -166,7 +166,6 @@
   <!-- FIM DO RODAPÉ -->
 
   <script src="./src/js/menuMobile.js"></script>
-  <script src="./src/js/scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 

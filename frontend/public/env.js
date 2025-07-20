@@ -1,0 +1,1 @@
+window.API_URL = "https://portfolio-digital-g7mp.onrender.com";

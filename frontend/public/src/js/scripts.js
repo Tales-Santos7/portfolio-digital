@@ -1,4 +1,4 @@
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = window.API_URL;
 
 // COR DO SITE
 fetch(`${apiUrl}/content/theme`)
