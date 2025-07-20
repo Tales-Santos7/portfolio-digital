@@ -1,3 +1,5 @@
+const apiUrl = import.meta.env.API_URL;
+
 // COR DO SITE
 fetch(`${apiUrl}/content/theme`)
   .then((res) => res.json())
