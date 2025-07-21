@@ -67,6 +67,28 @@ fetch(`${apiUrl}/content/logo`)
   })
   .catch((error) => console.error("Erro ao carregar logo:", error));
 
+// FAVICON
+ document.addEventListener("DOMContentLoaded", () => {
+    fetch(`${apiUrl}/content/favicon`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.images && data.images.length > 0) {
+          const faviconUrl = data.images[0] + "?t=" + Date.now();
+
+          let favicon = document.querySelector("link[rel='icon']");
+          if (!favicon) {
+            favicon = document.createElement("link");
+            favicon.rel = "icon";
+            document.head.appendChild(favicon);
+          }
+
+          favicon.type = "image/png";
+          favicon.href = faviconUrl;
+        }
+      })
+      .catch((err) => console.warn("Erro ao carregar favicon:", err));
+  });
+
 // LOGO-IMAGEM DO RODAPÉ
 window.addEventListener("DOMContentLoaded", () => {
   fetch(`${apiUrl}/content/footer-logo`)

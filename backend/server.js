@@ -59,6 +59,49 @@ app.put("/content/logo", async (req, res) => {
   }
 });
 
+// FAVICON
+app.get("/content/favicon", async (req, res) => {
+  try {
+    const favicon = await Content.findOne({ section: "favicon" });
+    if (!favicon) return res.json({ images: [] });
+    res.json(favicon);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao obter favicon" });
+  }
+});
+
+app.put("/content/favicon", upload.single("image"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "Imagem não enviada" });
+
+    const formData = new FormData();
+    formData.append("image", fs.createReadStream(req.file.path));
+
+    const response = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${process.env.POSTIMAGES_API_KEY}`,
+      formData,
+      { headers: formData.getHeaders() }
+    );
+
+    const imageUrl = response.data.data.url;
+    fs.unlinkSync(req.file.path);
+
+    let favicon = await Content.findOne({ section: "favicon" });
+
+    if (!favicon) {
+      favicon = new Content({ section: "favicon", images: [imageUrl] });
+    } else {
+      favicon.images = [imageUrl];
+    }
+
+    await favicon.save();
+    res.json(favicon);
+  } catch (error) {
+    console.error("Erro ao atualizar favicon:", error);
+    res.status(500).json({ message: "Erro ao atualizar favicon" });
+  }
+});
+
 // ATUALIZAR A MARCA D'AGUA DO RODAPÉ
 app.get("/content/footer-logo", async (req, res) => {
   try {
@@ -100,8 +143,6 @@ app.put("/content/footer-logo", upload.single("image"), async (req, res) => {
     }
 
     await footerLogo.save();
-    res.json(footerLogo);
-
     res.json(footerLogo);
   } catch (error) {
     console.error("Erro ao atualizar logo do rodapé:", error);
