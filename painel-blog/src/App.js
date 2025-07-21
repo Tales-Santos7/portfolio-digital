@@ -57,6 +57,12 @@ function App() {
       component: <SiteNameForm />,
     },
     {
+      id: "favicon",
+      icon: "mdi:circle-edit-outline",
+      label: "Favicon",
+      component: <FaviconForm />,
+    },
+    {
       id: "social-links",
       icon: "mdi:link-variant",
       label: "Redes Sociais",
@@ -67,12 +73,6 @@ function App() {
       icon: "mdi:image-outline",
       label: "Logo",
       component: <LogoForm />,
-    },
-    {
-      id: "favicon",
-      icon: "mdi:favicon",
-      label: "Favicon",
-      component: <FaviconForm />,
     },
     {
       id: "footer-logo",
