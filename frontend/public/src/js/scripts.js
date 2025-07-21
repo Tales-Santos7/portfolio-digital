@@ -107,9 +107,20 @@ fetch(`${apiUrl}/content/hero`)
   .then((res) => res.json())
   .then((data) => {
     const heroImage = document.getElementById("hero-photo");
+    const heroImageDropdown = document.getElementById("hero-photo-dropdown"); // NOVO
+
     if (data.images && data.images.length > 0) {
-      heroImage.src = data.images[0];
-      heroImage.style.display = "block";
+      const imageUrl = data.images[0];
+
+      if (heroImage) {
+        heroImage.src = imageUrl;
+        heroImage.style.display = "block";
+      }
+
+      if (heroImageDropdown) {
+        heroImageDropdown.src = imageUrl;
+        heroImageDropdown.style.display = "block";
+      }
     }
   })
   .catch((error) => console.error("Erro ao carregar imagem da hero:", error));
