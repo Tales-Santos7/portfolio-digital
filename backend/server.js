@@ -11,6 +11,7 @@ const app = express();
 const port = 3000;
 require("dotenv").config();
 
+app.use(express.json());
 app.use(cors({
   origin: [
     "https://demo-portfolio-digital.vercel.app",
