@@ -11,9 +11,11 @@ const app = express();
 const port = 3000;
 require("dotenv").config();
 
-app.use(express.json());
 app.use(cors({
-  origin: ["https://demo-painel-portfolio-digital.vercel.app"],
+  origin: [
+    "https://demo-portfolio-digital.vercel.app",
+    "https://demo-painel-portfolio-digital.vercel.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true 
 }));
