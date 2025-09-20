@@ -4,9 +4,12 @@ O site Portifólio Digital é um espaço dedicado à beleza, estilo de vida e co
 
 ## Visão geral
 
-### Captura do projeto
+### Capturas do projeto
+#### Site
+<img src="/portifolio-digital-front.gif" alt="gif ou imagem do projeto de Portifólio Digital">
 
-<img src="" alt="gif ou imagem do projeto de Portifólio Digital">
+#### Painel
+<img src="/portifolio-digital-painel.gif" alt="gif ou imagem do projeto de Portifólio Digital">
 
 ### Links
 
