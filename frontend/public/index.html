@@ -157,13 +157,18 @@
       </div>
     </div>
     <hr>
-    <p class="direitos">&copy; <span>
-        <script>
-          new Date().getFullYear();
-        </script>
-      </span> <a href="https://demo-portfolio-digital.vercel.app/"
-        style="color: #fff; background-color: rgba(0, 0, 0, 0.308); padding: 5px; border-radius: 8px; text-decoration: none;">User</a>
-      - Todos os direitos reservados.</p>
+    <p class="direitos">
+  &copy; <span id="ano"></span>
+  <a href="https://demo-portfolio-digital.vercel.app/"
+     style="color: #fff; background-color: rgba(0, 0, 0, 0.308); padding: 5px; border-radius: 8px; text-decoration: none;">
+     User
+  </a>
+  - Todos os direitos reservados.
+</p>
+
+<script>
+  document.getElementById("ano").textContent = new Date().getFullYear();
+</script>
   </footer>
   <!-- FIM DO RODAPÉ -->
 
