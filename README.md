@@ -42,5 +42,6 @@ O site Portifólio Digital é um espaço dedicado à beleza, estilo de vida e co
    <a href="https://instagram.com/tales.s7" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a>
    <a href="https://www.linkedin.com/in/tales-santos7" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
    <a href="mailto:tales.js07@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white"></a>
-   <a href="https://talessantos-mu.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/-Portf%C3%B3lio-Ffa500?style=for-the-badge&logo=portfolio&logoColor=white"></a>
+   <a href="https://otalessantos.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/-Portf%C3%B3lio-Ffa500?style=for-the-badge&logo=portfolio&logoColor=white"></a>
+   <a href="https://wa.link/r43rss" target="_blank"><img src="https://img.shields.io/badge/-WhatsApp-%2523E4405F?style=for-the-badge&logo=whatsapp&logoColor=white"></a>
 </div>
